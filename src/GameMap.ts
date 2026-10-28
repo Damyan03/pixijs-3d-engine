@@ -1,18 +1,16 @@
 import { Container, Graphics } from "pixi.js";
 
-export default class GameMap {
-
+export default class GameMap extends Container{
     private static instance: GameMap;
-
-    private playerX: Number;;
-    private playerY: Number;
-    private mapGrid: Number[][];
-
+    public static readonly cellSize = 100;
+    public static readonly rows = 9;
+    public static readonly cols = 9;
+    private mapGrid: number[][];
 
     private constructor(){
-        this.playerX = 4;
-        this.playerY = 4;
-        this.mapGrid = Array.from({ length: 9 }, () => Array<Number>(9).fill(0));
+        super();
+        this.mapGrid = Array.from({ length: GameMap.rows }, () => Array<number>(GameMap.cols).fill(0));
+        this.drawMap();
     }
 
     public static getInstance(): GameMap{
@@ -20,38 +18,19 @@ export default class GameMap {
         return GameMap.instance;
     }
 
-    public drawMap(canvas: Container): void{
+    private drawMap(): void{
         const map = new Graphics();
-        map.position.set()
 
-        console.log(this.mapGrid);
-
-        const cellSize = 100;
+        const cellSize = GameMap.cellSize;
 
         for(let row = 0; row < this.mapGrid.length; row++){
             for(let col = 0; col < this.mapGrid[row].length; col++){
-                map.rect(col * cellSize, row * cellSize, cellSize, cellSize)
-                .stroke({color: "black"})
+                map.rect(col * cellSize, row * cellSize, cellSize, cellSize);
             }
         }
 
-        canvas.addChild(map);
-    }
-    
-    public getPlayerX(): Number{
-        return this.playerX
-    }
+        map.stroke({color: "black"});
 
-    public setPlayerX(x: Number): void{
-        this.playerX = x;
+        this.addChild(map);
     }
-
-    public getPlayerY(): Number{
-        return this.playerY;
-    }
-    
-    public setplayerY(y: Number): void{
-        this.playerY = y;
-    }
-    
 }

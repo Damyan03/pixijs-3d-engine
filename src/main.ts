@@ -17,12 +17,10 @@ import Game from "./Game";
 	game.init();
 
 	const bounds = game.getLocalBounds();
-
 	game.pivot.set(
 		bounds.x + bounds.width / 2,
 		bounds.y + bounds.height / 2
 	);
-
 	const centerGame = () => {
 		game.position.set(
 			app.screen.width / 2,
